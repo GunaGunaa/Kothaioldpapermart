@@ -470,7 +470,7 @@ p{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .mynavbar{
-    background: rgb(229, 59, 118);
+    background:  rgb(245, 86, 86);
     height: 8vh;
     width: 100%;
     display: flex;
@@ -534,7 +534,7 @@ p{
 }
 .mynavbar .mynav-links li:hover .submenu-1{
     display: block;
-    background:  rgb(229, 59, 118);
+    background:  rgb(245, 86, 86);
     position: absolute;
     min-width: 180px;
     margin-top: 10px;
@@ -550,7 +550,7 @@ p{
 }
 .hoverme:hover .submenu-2{
     display: block;
-    background: rgb(229, 59, 118);
+    background: rgb(245, 86, 86);
     position: absolute;
     min-width: 180px;
     margin-left: 150px;
@@ -574,7 +574,7 @@ p{
     background: rgb(00 , 50 ,100);
 }
 .mynavbar.navbar-1 .mynav-links a:hover{
-    color:  rgb(229, 59, 118);
+    color:  rgb(245, 86, 86);
     /* background: rgb(0 ,128 , 255); */
 }
 .mynavbar.navbar-1 .mynav-links li:hover .submenu-1{
@@ -602,7 +602,7 @@ p{
         width: 100%;
         top: 8vh;
         border-top: 1px solid black;
-        background: rgb(229, 59, 118);
+        background: rgb(245, 86, 86);
         transform: translateY(-150%);
         transition: transform .5s;
     }
@@ -634,7 +634,7 @@ p{
     }
     .mynavbar .mynav-links li:hover .submenu-1{
         display: block;
-        background:  rgb(229, 59, 118);
+        background:  rgb(245, 86, 86);
         position: static;
         font-size: 15px;
         margin-left: 10px;
@@ -648,7 +648,7 @@ p{
     }
     .hoverme:hover .submenu-2{
         display: block;
-        background: rgb(229, 59, 118);
+        background: rgb(245, 86, 86);
         position: static;
         /* min-width: 180px; */
         margin-left: 30px;
