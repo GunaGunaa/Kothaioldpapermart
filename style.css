@@ -3,6 +3,11 @@
 html {
   font-size: 16px;
 }
+body{
+  /* position: fixed; */
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
 
 /* Use media queries to adjust styles for different screen sizes */
 @media (min-width: 768px) {
@@ -11,7 +16,6 @@ html {
     font-size: 18px;
   }
 }
-/* testing commit */ 
 @media (min-width: 992px) {
   /* Styles for screens larger than 992px */
   html {
@@ -583,6 +587,10 @@ p{
 /* responsive */
 
 @media screen and (max-width:987px){
+    .mynavbar{
+      position: fixed;
+      -webkit-overflow-scrolling: touch;
+    }
     .mynavbar .menu-icon{
         display: block;
     }
