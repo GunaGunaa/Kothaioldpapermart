@@ -66,6 +66,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -74,6 +76,8 @@ body {
   color: var(--text-body);
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -144,6 +148,9 @@ ul, ol {
   border-radius: var(--radius-full);
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.35;
 }
 
 .badge-green {
@@ -159,19 +166,22 @@ ul, ol {
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.02em;
   margin-top: 14px;
   margin-bottom: 14px;
   line-height: 1.25;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .section-subtitle {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   color: var(--text-muted);
   font-weight: 400;
+  overflow-wrap: break-word;
 }
 
 /* Buttons */
@@ -186,6 +196,15 @@ ul, ol {
   border-radius: var(--radius-md);
   transition: all var(--transition-normal);
   white-space: nowrap;
+  max-width: 100%;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 .btn-primary {
@@ -233,6 +252,19 @@ ul, ol {
 .btn-call:hover {
   background-color: #1d4ed8;
   transform: translateY(-2px);
+}
+
+.btn-amber, .btn-accent {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px -4px rgba(245, 158, 11, 0.45);
+}
+
+.btn-amber:hover, .btn-accent:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px -4px rgba(245, 158, 11, 0.55);
 }
 
 /* --- 4. TOP ANNOUNCEMENT BAR --- */
@@ -599,6 +631,7 @@ ul, ol {
   padding: 60px 0 80px;
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   text-align: center;
+  overflow: hidden;
 }
 
 .hero::before {
@@ -1435,6 +1468,8 @@ ul, ol {
   box-shadow: var(--shadow-xl);
   border: 1px solid var(--border-light);
   transition: all 0.3s ease;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .booking-card.highlight-pulse {
@@ -1497,6 +1532,7 @@ ul, ol {
   cursor: pointer;
   border: 1px solid transparent;
   transition: all var(--transition-fast);
+  word-break: break-word;
 }
 
 .checkbox-label:hover {
@@ -1519,10 +1555,11 @@ ul, ol {
   display: flex;
   gap: 14px;
   margin-top: 24px;
+  flex-wrap: wrap;
 }
 
 .form-actions .btn {
-  flex: 1;
+  flex: 1 1 200px;
 }
 
 /* Booking Sidebar / Quick Contact Card */
@@ -1532,6 +1569,8 @@ ul, ol {
   padding: 36px;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-lg);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .info-header {
@@ -1545,6 +1584,8 @@ ul, ol {
   font-weight: 800;
   color: var(--text-main);
   margin-bottom: 6px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .info-items {
@@ -1573,6 +1614,13 @@ ul, ol {
   flex-shrink: 0;
 }
 
+.info-text {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .info-text h4 {
   font-size: 0.95rem;
   font-weight: 700;
@@ -1596,6 +1644,8 @@ ul, ol {
   border-radius: var(--radius-lg);
   padding: 20px;
   text-align: center;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .instant-quote-box h4 {
@@ -1603,6 +1653,7 @@ ul, ol {
   font-weight: 800;
   color: var(--primary-dark);
   margin-bottom: 6px;
+  overflow-wrap: break-word;
 }
 
 .instant-quote-box p {
@@ -1611,9 +1662,32 @@ ul, ol {
   margin-bottom: 14px;
 }
 
+.instant-quote-box .btn {
+  max-width: 100%;
+}
+
 /* --- 13. WHY CHOOSE US (COMPARISON) --- */
+.table-scroll-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-alt);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  width: fit-content;
+  margin: 0 auto 16px auto;
+}
+
 .compare-wrapper {
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-light);
@@ -1622,6 +1696,7 @@ ul, ol {
 
 .compare-table {
   width: 100%;
+  min-width: 620px;
   border-collapse: collapse;
   text-align: left;
 }
@@ -1718,6 +1793,7 @@ ul, ol {
   padding: 60px 50px;
   position: relative;
   overflow: hidden;
+  max-width: 100%;
 }
 
 .commercial-card::after {
@@ -1741,11 +1817,13 @@ ul, ol {
 }
 
 .commercial-title {
-  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
   font-weight: 900;
   color: #ffffff;
   margin-bottom: 16px;
   line-height: 1.2;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .commercial-desc {
@@ -1753,6 +1831,7 @@ ul, ol {
   color: #cbd5e1;
   margin-bottom: 28px;
   line-height: 1.7;
+  overflow-wrap: break-word;
 }
 
 .commercial-features {
@@ -1781,6 +1860,8 @@ ul, ol {
   border-radius: var(--radius-lg);
   padding: 36px;
   text-align: center;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .commercial-stats-box h4 {
@@ -1989,6 +2070,8 @@ ul, ol {
   padding: 36px;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-light);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .contact-card-box h3 {
@@ -1996,6 +2079,7 @@ ul, ol {
   font-weight: 800;
   color: var(--text-main);
   margin-bottom: 8px;
+  overflow-wrap: break-word;
 }
 
 .contact-card-box p {
@@ -2030,6 +2114,13 @@ ul, ol {
   flex-shrink: 0;
 }
 
+.channel-content {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .channel-content strong {
   display: block;
   font-size: 0.95rem;
@@ -2040,6 +2131,10 @@ ul, ol {
 .channel-content a, .channel-content span {
   font-size: 0.9rem;
   color: var(--text-body);
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .channel-content a:hover {
@@ -2052,6 +2147,7 @@ ul, ol {
   gap: 12px;
   padding-top: 20px;
   border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
 }
 
 .social-btn {
@@ -2082,6 +2178,8 @@ ul, ol {
   background: #ffffff;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .map-embed {
@@ -2485,7 +2583,12 @@ ul, ol {
     display: none;
   }
 
+  /* Booking Form & Quick Assistance */
   .booking-card {
+    padding: 24px;
+  }
+
+  .booking-info-card {
     padding: 24px;
   }
 
@@ -2497,12 +2600,62 @@ ul, ol {
     grid-column: span 1;
   }
 
+  .form-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    white-space: normal;
+  }
+
+  /* Why Us / Comparison Table */
+  .table-scroll-hint {
+    display: inline-flex;
+  }
+
+  .compare-table th, .compare-table td {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* Corporate & Industrial */
   .commercial-card {
-    padding: 36px 24px;
+    padding: 32px 20px;
   }
 
   .commercial-features {
     grid-template-columns: 1fr;
+  }
+
+  .commercial-stats-box {
+    padding: 24px 18px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    white-space: normal;
+  }
+
+  /* Contact & Map */
+  .contact-card-box {
+    padding: 24px;
+  }
+
+  /* Calculator */
+  .calc-header {
+    padding: 18px 20px;
+  }
+
+  .calc-body {
+    padding: 24px 18px;
   }
 
   .footer-grid {
@@ -2519,14 +2672,83 @@ ul, ol {
 }
 
 @media (max-width: 640px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .btn-hero-lg {
+    width: 100%;
+    padding: 13px 20px;
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons-centered {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons-centered .btn {
+    width: 100%;
+  }
+
+  .hero-categories-pills {
+    gap: 8px;
+  }
+
+  .hero-cat-pill {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+
+  .hero-image-wrapper img {
+    height: 360px;
+  }
+
   .hero-floating-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .section {
+    padding-top: 38px;
+    padding-bottom: 38px;
+  }
+
+  .section-title {
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  .section-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .grand-brand-title {
+    font-size: clamp(1.85rem, 8.5vw, 2.5rem);
+  }
+
+  .hero-title-single {
+    font-size: clamp(1.65rem, 7.5vw, 2.2rem);
+  }
+
+  .badge {
+    font-size: 0.775rem;
+    padding: 5px 11px;
+  }
+
   .floating-brand-mini span {
     display: none;
   }
@@ -2553,12 +2775,71 @@ ul, ol {
     display: none !important;
   }
 
-  .hero-buttons .btn,
-  .hero-buttons-centered .btn {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-card,
+  .booking-info-card,
+  .contact-card-box,
+  .commercial-card,
+  .calculator-card,
+  .pillar-card,
+  .testimonial-card,
+  .areas-wrapper {
+    padding: 20px 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .category-checkboxes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .checkbox-label {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .instant-quote-box {
+    padding: 14px 10px;
+  }
+
+  .instant-quote-box .btn-whatsapp {
+    width: 100%;
+    white-space: normal;
+    padding: 11px 12px;
+    font-size: 0.85rem;
+  }
+
+  .map-footer {
+    padding: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .map-footer .btn {
     width: 100%;
   }
 
-  .form-actions {
-    flex-direction: column;
+  .info-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .contact-card-box h3 {
+    font-size: 1.25rem;
+  }
+
+  .commercial-title {
+    font-size: 1.45rem;
+  }
+
+  .commercial-stats-box h4 {
+    font-size: 1.15rem;
   }
 }
