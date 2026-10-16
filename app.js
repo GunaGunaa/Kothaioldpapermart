@@ -283,6 +283,7 @@ function initBookingForm() {
   function getFormData() {
     const name = document.getElementById('book-name')?.value.trim() || '';
     const phone = document.getElementById('book-phone')?.value.trim() || '';
+    const email = document.getElementById('book-email')?.value.trim() || '';
     const locality = document.getElementById('book-locality')?.value.trim() || '';
     const address = document.getElementById('book-address')?.value.trim() || '';
     const date = document.getElementById('book-date')?.value || 'Earliest Available';
@@ -299,6 +300,7 @@ function initBookingForm() {
     return {
       name,
       phone,
+      email,
       locality,
       address,
       date,
@@ -309,8 +311,8 @@ function initBookingForm() {
     };
   }
 
-  // Form submit -> Shows confirmation modal
-  bookingForm.addEventListener('submit', (e) => {
+  // Form submit -> Sends email notification automatically & shows confirmation modal
+  bookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = getFormData();
 
@@ -319,16 +321,64 @@ function initBookingForm() {
       return;
     }
 
-    // Populate modal
+    const submitBtn = bookingForm.querySelector('button[type="submit"]');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting & Alerting Depot...';
+    }
+
+    let emailSent = false;
+    try {
+      // Automatically send pickup notification email to thirupathithiru385@gmail.com
+      const res = await fetch('https://formsubmit.co/ajax/thirupathithiru385@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Doorstep Scrap Pickup: ${data.name} (${data.locality})`,
+          _template: 'table',
+          'Customer Name': data.name,
+          'Mobile / WhatsApp': data.phone,
+          'Customer Email': data.email || 'Not provided',
+          'Locality': data.locality,
+          'Complete Address': data.address,
+          'Scrap Categories': data.categories,
+          'Estimated Weight': data.weight,
+          'Preferred Date': data.date,
+          'Time Slot': data.slot,
+          'Special Notes': data.notes
+        })
+      });
+
+      if (res.ok) {
+        emailSent = true;
+      }
+    } catch (err) {
+      console.warn('Automated email dispatch note:', err);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+    }
+
+    // Populate confirmation modal
     const summaryElem = document.getElementById('modal-summary');
     if (summaryElem) {
       summaryElem.innerHTML = `
         <div class="summary-item"><strong>Customer:</strong> ${escapeHtml(data.name)}</div>
         <div class="summary-item"><strong>Contact:</strong> ${escapeHtml(data.phone)}</div>
+        ${data.email ? `<div class="summary-item"><strong>Email:</strong> ${escapeHtml(data.email)}</div>` : ''}
         <div class="summary-item"><strong>Address:</strong> ${escapeHtml(data.address)}, ${escapeHtml(data.locality)}</div>
         <div class="summary-item"><strong>Scrap Type:</strong> ${escapeHtml(data.categories)}</div>
         <div class="summary-item"><strong>Weight Bracket:</strong> ${escapeHtml(data.weight)}</div>
         <div class="summary-item"><strong>Scheduled Slot:</strong> ${escapeHtml(data.date)} (${escapeHtml(data.slot)})</div>
+        <div class="summary-item" style="color: var(--primary); font-weight: 700; margin-top: 10px; background: var(--primary-subtle); padding: 8px 12px; border-radius: var(--radius-sm);">
+          <i class="fa-solid fa-envelope-circle-check"></i> ${emailSent ? 'Email alert dispatched automatically to depot team!' : 'Pickup details recorded & ready for dispatch!'}
+        </div>
       `;
     }
 
@@ -366,7 +416,6 @@ function initBookingForm() {
     });
   }
 
-  // Close modal on background click
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -381,7 +430,7 @@ function initBookingForm() {
 `*Kothai Old Paper Mart - Doorstep Pickup Request*
 ---------------------------------------
 👤 *Name:* ${data.name}
-📞 *Phone:* ${data.phone}
+📞 *Phone:* ${data.phone}${data.email ? `\n✉️ *Email:* ${data.email}` : ''}
 📍 *Address:* ${data.address}, ${data.locality}
 📦 *Scrap Items:* ${data.categories}
 ⚖️ *Est. Weight:* ${data.weight}
